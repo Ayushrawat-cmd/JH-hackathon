@@ -43,8 +43,10 @@ app.use((req,res,next)=>{
 });
 
 const AuthRoutes = require('./routes/auth');
+const MainRoutes = require("./routes/main");
 
 app.use(AuthRoutes);
+app.use(MainRoutes);
 
 mongoose.connect(uri=MONGODB_URI,{
     useUnifiedTopology: true,

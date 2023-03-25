@@ -12,7 +12,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e7dcf8;
+  background: linear-gradient(180deg, #E6037D 0%, rgba(215, 1, 116, 0.54902) 53.68%, rgba(183, 12, 225, 0.29) 100%);
 }
 .wrapper {
   position: relative;
