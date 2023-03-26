@@ -3,13 +3,42 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.getAuth = (req,res,next)=>{
-    res.render('auth/auth.ejs')
+    res.render('auth/auth')
 };
 
 exports.postLogin = (req,res,next)=>{
     const email = req.body.email;
     const password = req.body.password;
-    
+    User.findOne({email:email}).then(
+        userDoc=>{
+            if(!userDoc)
+                return res.redirect("/auth");
+            bcrypt.compare(password, userDoc.password).then(
+                doMatch =>{
+                    if(doMatch){
+                        const token = jwt.sign({user_id: userDoc._id, email:email}, "my secret",{
+                            expiresIn:'2d',
+                        });
+                        userDoc.token = token;
+                        return userDoc.save().then(user=>{
+                            req.session.isloggedIn = true;
+                            req.session.user = user;
+                            return req.session.save(err=>{
+                                if(err)
+                                    console.log(err);
+                                return res.redirect("/");
+                            });
+                        });
+                    }
+                    else{
+                        return res.redirect("/auth");
+                    }
+                }
+            ).catch(err =>{
+                console.log(err);
+            });
+        }
+    )
 }
 
 exports.postRegister = (req,res,next) =>{
@@ -54,3 +83,11 @@ exports.postRegister = (req,res,next) =>{
         }
     );
 };
+
+exports.postLogout = (req,res,next)=>{
+    req.session.destroy(err =>{
+        if(err)
+            console.log(err);
+        res.redirect("/");
+    })
+}

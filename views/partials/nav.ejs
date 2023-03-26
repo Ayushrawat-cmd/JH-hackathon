@@ -1,0 +1,70 @@
+<div
+  data-collapse="medium"
+  data-animation="default"
+  data-duration="400"
+  data-easing="ease"
+  data-easing2="ease"
+  role="banner"
+  class="navigation w-nav"
+>
+  <div class="navigation-wrap">
+    <a
+      href="/"
+      aria-current="page"
+      class="logo-link w-clearfix w-nav-brand w--current"
+      ><img
+        src="https://uploads-ssl.webflow.com/641b0de3c6487448ec984527/641b0ffaaf06efe7aa9399be_hackathon.png"
+        width="115"
+        height="100"
+        loading="lazy"
+        alt=""
+        class="logo-image"
+      />
+      <div class="text-block-7"></div>
+    </a>
+    <div class="menu">
+      <nav role="navigation" class="navigation-items w-nav-menu">
+        <a
+          href="/about"
+          class="navigation-item w-nav-link <%= path === '/about'? 'w--current' : '' %>"
+          >About</a
+        >
+        <a
+          href="/projects"
+          class="navigation-item w-nav-link <%= path === '/work'? 'w--current' : '' %>"
+          >Work</a
+        ><a
+          href="/team"
+          class="navigation-item w-nav-link <%= path === '/team'? 'w--current' : '' %>"
+          >team</a
+        ><a
+          href="/blog"
+          class="navigation-item w-nav-link <%= path === '/blog'? 'w--current' : '' %>"
+          >Blog</a
+        ><a
+          href="/contact"
+          class="navigation-item w-nav-link <%= path === '/contact'? 'w--current' : '' %>"
+          >Contact</a
+        >
+      </nav>
+      <div class="menu-button w-nav-button">
+        <img
+          src="https://uploads-ssl.webflow.com/641b0de3c6487448ec984527/641b0de3c6487439d198454d_menu-icon.png"
+          width="22"
+          alt=""
+          class="menu-icon"
+        />
+      </div>
+    </div>
+    <% if (!isLoggedIn) { %>
+    <a href="/auth" class="button cc-contact-us w-inline-block">
+      <div class="text-block-8">Login | REgister</div>
+    </a>
+      <% } else { %>
+        <form  action="/logout" method="post">
+            <button class="button cc-contact-us w-inline-block text-block-8" type="submit">Logout </button>
+
+        </form>
+        <% } %>
+  </div>
+</div>
